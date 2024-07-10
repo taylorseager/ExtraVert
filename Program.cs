@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ExtraVert;
 
-List<Plant> Plants = new List<Plant>()
+List<Plant> plants = new List<Plant>()
 {
     new Plant()
     {
@@ -54,3 +54,9 @@ string greeting = @"Welcome to the Jungle
 A plant store for everyone!";
 
 Console.WriteLine(greeting);
+
+Console.WriteLine("Plants:");
+for (int i = 0; i < plants.Count; i++)
+{
+    Console.WriteLine($"{i + 1}. {plants[i].Species}");
+}
