@@ -1,2 +1,51 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using ExtraVert;
+
+List<Plant> Plants = new List<Plant>()
+{
+    new Plant()
+    {
+        Species = "Hosta",
+        LightNeeds = 1,
+        AskingPrice = 20.00M,
+        City = ,
+        Zip = ,
+        Sold = false
+    },
+    new Plant()
+    {
+        Species = "Snake Plant",
+        LightNeeds = 1.5,
+        AskingPrice = 15.99M,
+        City = "Hendersonville",
+        Zip = 37075,
+        Sold = false
+    },
+    new Plant()
+    {
+        Species = "Zinnia",
+        LightNeeds = 5,
+        AskingPrice = 12.99M,
+        City = "Hendersonville",
+        Zip = 37075,
+        Sold = false
+    },
+    new Plant()
+    {
+        Species = "Stargazer Lily",
+        LightNeeds = 4,
+        AskingPrice = 24.99M,
+        City = "Nashville",
+        Zip = 37011,
+        Sold = false
+    },
+    new Plant()
+    {
+        Species = "Gerbera Daisy",
+        LightNeeds = 4,
+        AskingPrice = 5.99M,
+        City = "Hendersonville",
+        Zip = 37075,
+        Sold = false
+    },
+};
