@@ -8,8 +8,8 @@ List<Plant> Plants = new List<Plant>()
         Species = "Hosta",
         LightNeeds = 1,
         AskingPrice = 20.00M,
-        City = ,
-        Zip = ,
+        City = "Nashville",
+        Zip = 37011,
         Sold = false
     },
     new Plant()
@@ -19,7 +19,7 @@ List<Plant> Plants = new List<Plant>()
         AskingPrice = 15.99M,
         City = "Hendersonville",
         Zip = 37075,
-        Sold = false
+        Sold = true
     },
     new Plant()
     {
@@ -37,7 +37,7 @@ List<Plant> Plants = new List<Plant>()
         AskingPrice = 24.99M,
         City = "Nashville",
         Zip = 37011,
-        Sold = false
+        Sold = true
     },
     new Plant()
     {
@@ -49,3 +49,8 @@ List<Plant> Plants = new List<Plant>()
         Sold = false
     },
 };
+
+string greeting = @"Welcome to the Jungle
+A plant store for everyone!";
+
+Console.WriteLine(greeting);
