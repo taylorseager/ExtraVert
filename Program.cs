@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Numerics;
 using ExtraVert;
 
 List<Plant> plants = new List<Plant>()
@@ -72,22 +73,22 @@ while (choice != "0")
     choice = Console.ReadLine();
     if (choice == "0")
     {
-        Console.WriteLine("Goodbye!");
+        Console.WriteLine("Come back again soon!");
     }
     else if (choice == "1")
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("View All Plants");
     }
     else if (choice == "2")
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("Post A Plant To Be Adopted");
     }
     else if (choice == "3")
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("Adopt A Plant");
     }
     else if (choice == "4")
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("Delist A Plant");
     }
 };
