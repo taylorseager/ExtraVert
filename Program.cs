@@ -92,3 +92,28 @@ while (choice != "0")
         throw new NotImplementedException("Delist A Plant");
     }
 };
+
+Plant chosenProduct = null;
+
+while (chosenProduct == null)
+{
+    Console.WriteLine("Please enter a species number: ");
+    try
+    {
+        int response = int.Parse(Console.ReadLine().Trim());
+        chosenProduct = plants[response - 1];
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine("Please type only integers!");
+    }
+    catch (ArgumentOutOfRangeException)
+    {
+        Console.WriteLine("Please choose an existing item only!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex);
+        Console.WriteLine("Try again! You missed something");
+    }
+}
