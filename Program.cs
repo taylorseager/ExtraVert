@@ -55,8 +55,39 @@ A plant store for everyone!";
 
 Console.WriteLine(greeting);
 
-Console.WriteLine("Plants:");
-for (int i = 0; i < plants.Count; i++)
+//Console.WriteLine("Plants:");
+//for (int i = 0; i < plants.Count; i++)
+//{
+//    Console.WriteLine($"{i + 1}. {plants[i].Species}");
+//}
+string choice = null;
+while (choice != "0")
 {
-    Console.WriteLine($"{i + 1}. {plants[i].Species}");
-}
+    Console.WriteLine(@"Choose an option:
+                        0. Exit
+                        1. View All Plants
+                        2. Post A Plant To Be Adopted
+                        3. Adopt A Plant
+                        4. Delist A Plant");
+    choice = Console.ReadLine();
+    if (choice == "0")
+    {
+        Console.WriteLine("Goodbye!");
+    }
+    else if (choice == "1")
+    {
+        throw new NotImplementedException();
+    }
+    else if (choice == "2")
+    {
+        throw new NotImplementedException();
+    }
+    else if (choice == "3")
+    {
+        throw new NotImplementedException();
+    }
+    else if (choice == "4")
+    {
+        throw new NotImplementedException();
+    }
+};
