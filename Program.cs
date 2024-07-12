@@ -77,7 +77,7 @@ void ListAllPlants()
     for (int i = 0; i < plants.Count; i++)
     {
         string availability = plants[i].Sold ? "was sold" : "is available";
-        Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for {plants[i].AskingPrice}");
+        Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}");
     }
 }
 
@@ -100,8 +100,9 @@ void NewPlant()
 
     Console.WriteLine("Zipcode: ");
     int zip;
+    while (!int.TryParse(Console.ReadLine().Trim(), out zip)) ;
 
-Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip);
+    Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip);
 
     plants.Add(newPlant);
 
