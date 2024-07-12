@@ -1,54 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Numerics;
-using ExtraVert;
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant()
-    {
-        Species = "Hosta",
-        LightNeeds = 1,
-        AskingPrice = 20.00M,
-        City = "Nashville",
-        Zip = 37011,
-        Sold = false
-    },
-    new Plant()
-    {
-        Species = "Snake Plant",
-        LightNeeds = 1.5,
-        AskingPrice = 15.99M,
-        City = "Hendersonville",
-        Zip = 37075,
-        Sold = true
-    },
-    new Plant()
-    {
-        Species = "Zinnia",
-        LightNeeds = 5,
-        AskingPrice = 12.99M,
-        City = "Hendersonville",
-        Zip = 37075,
-        Sold = false
-    },
-    new Plant()
-    {
-        Species = "Stargazer Lily",
-        LightNeeds = 4,
-        AskingPrice = 24.99M,
-        City = "Nashville",
-        Zip = 37011,
-        Sold = true
-    },
-    new Plant()
-    {
-        Species = "Gerbera Daisy",
-        LightNeeds = 4,
-        AskingPrice = 5.99M,
-        City = "Hendersonville",
-        Zip = 37075,
-        Sold = false
-    },
+    new Plant(species: "Hosta", lightNeeds: 1, askingPrice:20.00M, city: "Nashville", zip: 37011),
+    new Plant(species:"Snake Plant", lightNeeds: 1, askingPrice: 15.99M, city: "Hendersonville", zip: 37075),
+    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075),
+    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075),
 };
 
 string greeting = @"Welcome to the Jungle
@@ -56,11 +15,6 @@ A plant store for everyone!";
 
 Console.WriteLine(greeting);
 
-//Console.WriteLine("Plants:");
-//for (int i = 0; i < plants.Count; i++)
-//{
-//    Console.WriteLine($"{i + 1}. {plants[i].Species}");
-//}
 string choice = null;
 while (choice != "0")
 {
@@ -81,7 +35,7 @@ while (choice != "0")
     }
     else if (choice == "2")
     {
-        throw new NotImplementedException("Post A Plant To Be Adopted");
+        NewPlant();
     }
     else if (choice == "3")
     {
@@ -126,3 +80,39 @@ void ListAllPlants()
         Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for {plants[i].AskingPrice}");
     }
 }
+
+void NewPlant()
+{
+    Console.WriteLine("Enter the details for the new plant:");
+    Console.WriteLine("Species: ");
+    string? species = Console.ReadLine().Trim();
+
+    Console.WriteLine("Light Needs (1 = shade, 5 = sun): ");
+    double lightNeeds;
+    while (!double.TryParse(Console.ReadLine().Trim(), out lightNeeds));
+    {
+        Console.WriteLine("Please enter valid integer for light needs:");
+    }
+
+    Console.WriteLine("Asking Price: ");
+    decimal askingPrice;
+    while (!decimal.TryParse(Console.ReadLine().Trim(), out askingPrice));
+    {
+        Console.WriteLine("Please enter valid integer for the asking price:");
+    }
+
+    Console.WriteLine("City: ");
+    string? city = Console.ReadLine().Trim();
+
+    Console.WriteLine("Zipcode: ");
+    int zip;
+    while (!int.TryParse(Console.ReadLine().Trim(), out zip));
+    {
+        Console.WriteLine("Please enter valid integer for the asking price:");
+    }
+
+Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip);
+
+    plants.Add(newPlant);
+
+    Console.WriteLine($"The plant {newPlant.Species} has been added!");}
