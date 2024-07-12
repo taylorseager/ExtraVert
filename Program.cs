@@ -77,7 +77,7 @@ while (choice != "0")
     }
     else if (choice == "1")
     {
-        throw new NotImplementedException("View All Plants");
+        ListAllPlants();
     }
     else if (choice == "2")
     {
@@ -115,5 +115,14 @@ while (chosenProduct == null)
     {
         Console.WriteLine(ex);
         Console.WriteLine("Try again! You missed something");
+    }
+}
+
+void ListAllPlants()
+{
+    for (int i = 0; i < plants.Count; i++)
+    {
+        string availability = plants[i].Sold ? "was sold" : "is available";
+        Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for {plants[i].AskingPrice}");
     }
 }
