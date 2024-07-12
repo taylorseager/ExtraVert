@@ -90,26 +90,16 @@ void NewPlant()
     Console.WriteLine("Light Needs (1 = shade, 5 = sun): ");
     double lightNeeds;
     while (!double.TryParse(Console.ReadLine().Trim(), out lightNeeds));
-    {
-        Console.WriteLine("Please enter valid integer for light needs:");
-    }
 
     Console.WriteLine("Asking Price: ");
     decimal askingPrice;
     while (!decimal.TryParse(Console.ReadLine().Trim(), out askingPrice));
-    {
-        Console.WriteLine("Please enter valid integer for the asking price:");
-    }
-
-    Console.WriteLine("City: ");
+  
+        Console.WriteLine("City: ");
     string? city = Console.ReadLine().Trim();
 
     Console.WriteLine("Zipcode: ");
     int zip;
-    while (!int.TryParse(Console.ReadLine().Trim(), out zip));
-    {
-        Console.WriteLine("Please enter valid integer for the asking price:");
-    }
 
 Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip);
 
