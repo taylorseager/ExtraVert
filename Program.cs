@@ -202,4 +202,33 @@ void PlantOfTheDay()
 void SearchByLightNeeds()
 {
     Console.WriteLine("Please enter a whole number between 1 and 5");
+
+    
+    int chosenNumber;
+    while (!int.TryParse(Console.ReadLine().Trim(), out chosenNumber))
+    {
+        Console.WriteLine("Wrong. Try again. Please enter a whole number between 1 and 5:");
+    }
+
+    List<Plant> matchedPlants = new List<Plant>();
+
+    foreach (var plant in plants)
+        {
+            if (plant.LightNeeds <= chosenNumber)
+            {
+                matchedPlants.Add(plant);
+            }
+        }
+    if (matchedPlants.Any())
+    {
+        Console.WriteLine($"Here are the plants with light needs of {chosenNumber} or lower: ");
+        foreach (var matchedPlant in matchedPlants)
+        {
+            Console.WriteLine($"{matchedPlant.Species} with light need: {matchedPlant.LightNeeds}.");
+        }
+    }
+    else
+    {
+        Console.WriteLine($"No plants found with light needs of {chosenNumber} or lower.");
+    }
 }
