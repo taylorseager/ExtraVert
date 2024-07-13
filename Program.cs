@@ -39,7 +39,7 @@ while (choice != "0")
     }
     else if (choice == "3")
     {
-        throw new NotImplementedException("Adopt A Plant");
+        AdoptAPlant();
     }
     else if (choice == "4")
     {
@@ -106,4 +106,11 @@ void NewPlant()
 
     plants.Add(newPlant);
 
-    Console.WriteLine($"The plant {newPlant.Species} has been added!");}
+    Console.WriteLine($"The plant {newPlant.Species} has been added!");
+}
+
+void AdoptAPlant()
+{
+    Console.WriteLine("Please select plant to adopt:");
+    ListAllPlants(chosenProduct);
+}
