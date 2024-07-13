@@ -26,7 +26,8 @@ while (choice != "0")
                         2. Post A Plant To Be Adopted
                         3. Adopt A Plant
                         4. Delist A Plant
-                        5. Plant of the Day");
+                        5. Plant of the Day
+                        6. Search for Plants by Light Needs");
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -51,6 +52,10 @@ while (choice != "0")
     else if (choice == "5")
     {
         PlantOfTheDay();
+    }
+    else if (choice == "6")
+    {
+        SearchByLightNeeds();
     }
 };
 
@@ -192,4 +197,9 @@ void PlantOfTheDay()
         }
 
     }
+}
+
+void SearchByLightNeeds()
+{
+    Console.WriteLine("Please enter a whole number between 1 and 5");
 }
