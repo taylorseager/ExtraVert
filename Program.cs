@@ -26,7 +26,8 @@ while (choice != "0")
                         2. Post A Plant To Be Adopted
                         3. Adopt A Plant
                         4. Delist A Plant
-                        5. Plant of the Day");
+                        5. Plant of the Day
+                        6. Search for Plants by Light Needs");
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -51,6 +52,10 @@ while (choice != "0")
     else if (choice == "5")
     {
         PlantOfTheDay();
+    }
+    else if (choice == "6")
+    {
+        SearchByLightNeeds();
     }
 };
 
@@ -191,5 +196,39 @@ void PlantOfTheDay()
             Console.WriteLine($"{plantOfTheDay.Species} in {plantOfTheDay.City}, requires light needs of {plantOfTheDay.LightNeeds} and is ${plantOfTheDay.AskingPrice}");
         }
 
+    }
+}
+
+void SearchByLightNeeds()
+{
+    Console.WriteLine("Please enter a whole number between 1 and 5");
+
+    
+    int chosenNumber;
+    while (!int.TryParse(Console.ReadLine().Trim(), out chosenNumber))
+    {
+        Console.WriteLine("Wrong. Try again. Please enter a whole number between 1 and 5:");
+    }
+
+    List<Plant> matchedPlants = new List<Plant>();
+
+    foreach (var plant in plants)
+        {
+            if (plant.LightNeeds <= chosenNumber)
+            {
+                matchedPlants.Add(plant);
+            }
+        }
+    if (matchedPlants.Any())
+    {
+        Console.WriteLine($"Here are the plants with light needs of {chosenNumber} or lower: ");
+        foreach (var matchedPlant in matchedPlants)
+        {
+            Console.WriteLine($"{matchedPlant.Species} with light need: {matchedPlant.LightNeeds}.");
+        }
+    }
+    else
+    {
+        Console.WriteLine($"No plants found with light needs of {chosenNumber} or lower.");
     }
 }
