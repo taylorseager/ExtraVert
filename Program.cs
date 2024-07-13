@@ -43,7 +43,7 @@ while (choice != "0")
     }
     else if (choice == "4")
     {
-        throw new NotImplementedException("Delist A Plant");
+        DelistPlant();
     }
 };
 
@@ -143,4 +143,27 @@ void AdoptAPlant()
         Console.WriteLine($"Your selected plant {chosenPlant} was not found.");
     }
 
+}
+
+void DelistPlant()
+{
+    Console.WriteLine("Please enter full plant name to delete:");
+    ListAllPlants();
+
+    string chosenPlant = Console.ReadLine().Trim().ToLower();
+
+    var availablePlants = plants.Where(plant => plant.Species.ToLower() == chosenPlant && !plant.Sold).ToList();
+
+    if (availablePlants.Any())
+    {
+        foreach (var plant in availablePlants)
+        {
+            plants.Remove(plant);
+            Console.WriteLine($"{plant.Species} has been removed successfully");
+        }
+    }
+    else
+    {
+        Console.WriteLine($"Your selected plant {chosenPlant.ToLower()} was not found.");
+    }
 }
