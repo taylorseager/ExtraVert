@@ -11,13 +11,13 @@ using System.Reflection.Emit;
         public int? Zip { get; set; }
         public bool Sold { get; set; }
 
-        public Plant(string species, double lightNeeds, decimal askingPrice, string city, int zip)
+        public Plant(string species, double lightNeeds, decimal askingPrice, string city, int zip, bool sold)
         {
             Species = species;
             LightNeeds = lightNeeds;
             AskingPrice = askingPrice;
             City = city;
             Zip = zip;
-            Sold = false;
+            Sold = sold;
         }
     }

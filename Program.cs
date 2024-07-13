@@ -3,11 +3,11 @@ using System.Numerics;
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant(species: "Hosta", lightNeeds: 1, askingPrice:20.00M, city: "Nashville", zip: 37011),
-    new Plant(species:"Snake Plant", lightNeeds: 1, askingPrice: 15.99M, city: "Hendersonville", zip: 37075),
-    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075),
-    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011),
-    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075),
+    new Plant(species: "Hosta", lightNeeds: 1, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true),
+    new Plant(species:"Snake Plant", lightNeeds: 1, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false),
+    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false),
+    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false),
 };
 
 string greeting = @"Welcome to the Jungle
@@ -81,6 +81,16 @@ void ListAllPlants()
     }
 }
 
+void ListAllAvailablePlants()
+{
+    var availablePlants = plants.Where(plant => !plant.Sold).ToList();
+
+    for (int i = 0; i < availablePlants.Count; i++)
+    {
+        string availability = availablePlants[i].Sold ? "was sold" : "is available";
+        Console.WriteLine($"{i + 1}. {availablePlants[i].Species} in {availablePlants[i].City} {availability} for ${availablePlants[i].AskingPrice}");
+    }
+}
 void NewPlant()
 {
     Console.WriteLine("Enter the details for the new plant:");
@@ -102,7 +112,7 @@ void NewPlant()
     int zip;
     while (!int.TryParse(Console.ReadLine().Trim(), out zip)) ;
 
-    Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip);
+    Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip, sold: false);
 
     plants.Add(newPlant);
 
@@ -111,6 +121,26 @@ void NewPlant()
 
 void AdoptAPlant()
 {
-    Console.WriteLine("Please select plant to adopt:");
-    ListAllPlants(chosenProduct);
+    Console.WriteLine("Please enter full plant name to adopt:");
+    ListAllAvailablePlants();
+    string chosenPlant = Console.ReadLine().Trim().ToLower();
+
+    var availablePlants = plants.Where(plant => plant.Species.ToLower() == chosenPlant && !plant.Sold).ToList();
+
+    if (availablePlants.Any())
+    {
+        for (int i = 0; i < availablePlants.Count; i++)
+        {
+            Console.WriteLine($"You selected: {availablePlants[i].Species}.");
+
+            availablePlants[i].Sold = true;
+            Console.WriteLine($"Plant {availablePlants[i].Species} has been adopted.");
+        }
+     
+    }
+    else
+    {
+        Console.WriteLine($"Your selected plant {chosenPlant} was not found.");
+    }
+
 }
