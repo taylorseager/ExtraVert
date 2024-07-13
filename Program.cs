@@ -3,8 +3,8 @@ using System.Numerics;
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant(species: "Hosta", lightNeeds: 1, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true),
-    new Plant(species:"Snake Plant", lightNeeds: 1, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false),
+    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true),
+    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false),
     new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false),
     new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true),
     new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false),
