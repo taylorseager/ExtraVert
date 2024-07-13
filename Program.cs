@@ -10,6 +10,8 @@ List<Plant> plants = new List<Plant>()
     new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false),
 };
 
+Random randomPlant = new Random();
+
 string greeting = @"Welcome to the Jungle
 A plant store for everyone!";
 
@@ -23,7 +25,8 @@ while (choice != "0")
                         1. View All Plants
                         2. Post A Plant To Be Adopted
                         3. Adopt A Plant
-                        4. Delist A Plant");
+                        4. Delist A Plant
+                        5. Plant of the Day");
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -44,6 +47,10 @@ while (choice != "0")
     else if (choice == "4")
     {
         DelistPlant();
+    }
+    else if (choice == "5")
+    {
+        PlantOfTheDay();
     }
 };
 
@@ -165,5 +172,21 @@ void DelistPlant()
     else
     {
         Console.WriteLine($"Your selected plant {chosenPlant.ToLower()} was not found.");
+    }
+}
+
+void PlantOfTheDay()
+{
+    var availablePlants = plants.Where(plant => !plant.Sold).ToList();
+
+
+    if (availablePlants.Any())
+    {
+        int randomInteger = randomPlant.Next(availablePlants.Count());
+        {
+            Plant plantOfTheDay = availablePlants[randomInteger];
+            Console.WriteLine($"{plantOfTheDay.Species} in {plantOfTheDay.City}, requires light needs of {plantOfTheDay.LightNeeds} and is ${plantOfTheDay.AskingPrice}");
+        }
+
     }
 }
