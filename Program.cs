@@ -3,18 +3,18 @@ using System.Numerics;
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2023-08-12)),
-    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2023-07-12)),
-    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2023-08-12)),
-    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2023-05-12)),
-    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2023-08-12)),
+    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 07, 12)),
+    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 05, 12)),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
 };
+
 
 Random randomPlant = new Random();
 
 string greeting = @"Welcome to the Jungle
 A plant store for everyone!";
-
 Console.WriteLine(greeting);
 
 string choice = null;
@@ -103,7 +103,9 @@ void ListAllPlants()
 
 void ListAllAvailablePlants()
 {
-    var availablePlants = plants.Where(plant => !plant.Sold).ToList();
+    DateTime now = DateTime.Now;
+
+    var availablePlants = plants.Where(plant => !plant.Sold && plant.AvailableUntil > now).ToList();
 
     for (int i = 0; i < availablePlants.Count; i++)
     {
@@ -135,14 +137,14 @@ void NewPlant()
 
     Console.WriteLine("Enter Year, Month, Day, your post will expire (YYYY-MM-DD): ");
     DateTime availableUntil;
-    if (DateTime.TryParse(Console.ReadLine(), out availableUntil))
-        {
-            Console.WriteLine($"Post will expire on: {availableUntil}");
-        }
-    else
-        {
-            Console.WriteLine("Invalid date format.");
-        }
+    while (DateTime.TryParse(Console.ReadLine(), out availableUntil)) ;
+    //    {
+    //        Console.WriteLine($"Post will expire on: {availableUntil}");
+    //    }
+    //else
+    //    {
+    //        Console.WriteLine("Invalid date format.");
+    //    }
 
 
 
@@ -155,11 +157,13 @@ void NewPlant()
 
 void AdoptAPlant()
 {
+    DateTime now = DateTime.Now;
+
     Console.WriteLine("Please enter full plant name to adopt:");
     ListAllAvailablePlants();
     string chosenPlant = Console.ReadLine().Trim().ToLower();
 
-    var availablePlants = plants.Where(plant => plant.Species.ToLower() == chosenPlant && !plant.Sold).ToList();
+    var availablePlants = plants.Where(plant => plant.Species.ToLower() == chosenPlant && !plant.Sold && plant.AvailableUntil > now).ToList();
 
     if (availablePlants.Any())
     {
