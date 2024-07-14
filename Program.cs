@@ -5,9 +5,9 @@ List<Plant> plants = new List<Plant>()
 {
     new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 08, 12)),
     new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 07, 12)),
-    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species: "Zinnia", lightNeeds: 2, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
     new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 05, 12)),
-    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 1, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
 };
 
 
@@ -316,4 +316,23 @@ void AppStatistics()
     {
         Console.WriteLine("No plants found in the list.");
     }
+
+    // AVERAGE LIGHT NEEDS
+    int sizeofPlants = plants.Count;
+    int[] lightNeeds = new int[plants.Count];
+    //float amountToMultiply = 123.44f;
+
+    float avgLightNeeds = 0.0f;
+
+    for (int i = 0; i < plants.Count; i++)
+    {
+        lightNeeds[i] = (int)plants[i].LightNeeds;
+        avgLightNeeds += lightNeeds[i];
+    }
+
+    float sizeOfPlants = plants.Count;
+    avgLightNeeds = avgLightNeeds / sizeOfPlants;
+
+    Console.WriteLine($"Average light needs of all plants: {avgLightNeeds}");
+
 }
