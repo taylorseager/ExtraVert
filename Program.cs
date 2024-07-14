@@ -320,7 +320,6 @@ void AppStatistics()
     // AVERAGE LIGHT NEEDS
     int sizeofPlants = plants.Count;
     int[] lightNeeds = new int[plants.Count];
-    //float amountToMultiply = 123.44f;
 
     float avgLightNeeds = 0.0f;
 
@@ -335,4 +334,18 @@ void AppStatistics()
 
     Console.WriteLine($"Average light needs of all plants: {avgLightNeeds}");
 
+
+    // PERCENTAGE OF PLANTS ADOPTED
+    int plantsTotal = plants.Count;
+    int plantsAdopted = plants.Count(plant => plant.Sold);
+
+    float percentAdopted = 0.0f;
+
+    if (plantsTotal > 0)
+    {
+        percentAdopted = ((float)plantsAdopted / plantsTotal) * 100;
+    }
+
+
+    Console.WriteLine($"The % of plants adopted is: {percentAdopted}%.");
 }
