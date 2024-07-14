@@ -5,9 +5,9 @@ List<Plant> plants = new List<Plant>()
 {
     new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 08, 12)),
     new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 07, 12)),
-    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species: "Zinnia", lightNeeds: 2, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
     new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 05, 12)),
-    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 1, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
 };
 
 
@@ -27,7 +27,8 @@ while (choice != "0")
                         3. Adopt A Plant
                         4. Delist A Plant
                         5. Plant of the Day
-                        6. Search for Plants by Light Needs");
+                        6. Search for Plants by Light Needs
+                        7. View Statistics");
 
     choice = Console.ReadLine();
     if (choice == "0")
@@ -57,6 +58,10 @@ while (choice != "0")
     else if (choice == "6")
     {
         SearchByLightNeeds();
+    }
+    else if (choice == "7")
+    {
+        AppStatistics();
     }
     else
     {
@@ -246,4 +251,102 @@ void SearchByLightNeeds()
     {
         Console.WriteLine($"No plants found with light needs of {chosenNumber} or lower.");
     }
+}
+
+void AppStatistics()
+{
+    Console.WriteLine("Application Stats:");
+
+    // LOWEST PRICED PLANT
+    // decimal.MaxValue = largest value a decimal can hold
+    decimal lowestPrice = decimal.MaxValue;
+    Plant cheapestPlant = null;
+
+    foreach (var plant in plants)
+    {
+        if (plant.AskingPrice < lowestPrice)
+        {
+            lowestPrice = (decimal)plant.AskingPrice;
+            cheapestPlant = plant;
+        }
+    }
+
+    if (cheapestPlant != null)
+    {
+        Console.WriteLine($"The cheapest plant is {cheapestPlant.Species} in {cheapestPlant.City} for ${cheapestPlant.AskingPrice}.");
+    }
+    else
+    {
+        Console.WriteLine("No plants found in the list.");
+    }
+
+    // NUMBER OF AVAILABLE PLANTS:
+    // have to set variable to 0
+    int totalAvailablePlants = 0;
+
+    // loop through list, then check if a plant is not sold, increment count for each plant that isn't sold
+    foreach (var plant in plants)
+    {
+        if (!plant.Sold)
+        {
+            totalAvailablePlants++;
+        }
+    }
+    Console.WriteLine($"Total number of available plants: {totalAvailablePlants}.");
+
+
+    // HIGHEST LIGHT NEEDS
+    double highestLight = double.MinValue;
+    Plant sunnyPlant = null;
+
+    foreach (var plant in plants)
+    {
+        if (plant.LightNeeds > highestLight)
+        {
+            highestLight = (double)plant.LightNeeds;
+            sunnyPlant = plant;
+        }
+    }
+
+    if (sunnyPlant != null)
+    {
+        Console.WriteLine($"The plant that has the highest light need is {sunnyPlant.Species} in {sunnyPlant.City} with a light need of {sunnyPlant.LightNeeds}.");
+    }
+    else
+    {
+        Console.WriteLine("No plants found in the list.");
+    }
+
+    // AVERAGE LIGHT NEEDS
+    int sizeofPlants = plants.Count;
+    int[] lightNeeds = new int[plants.Count];
+
+    float avgLightNeeds = 0.0f;
+
+    for (int i = 0; i < plants.Count; i++)
+    {
+        lightNeeds[i] = (int)plants[i].LightNeeds;
+        avgLightNeeds += lightNeeds[i];
+    }
+
+    float sizeOfPlants = plants.Count;
+    avgLightNeeds = avgLightNeeds / sizeOfPlants;
+
+    Console.WriteLine($"Average light needs of all plants: {avgLightNeeds}");
+
+
+    // PERCENTAGE OF PLANTS ADOPTED
+    int plantsTotal = plants.Count;
+    int plantsAdopted = plants.Count(plant => plant.Sold);
+
+    // sets percentAdopted to 0; has to have f behind it to tell C# it's a float
+    float percentAdopted = 0.0f;
+
+    if (plantsTotal > 0)
+    {
+        percentAdopted = ((float)plantsAdopted / plantsTotal) * 100;
+    }
+
+
+    Console.WriteLine($"The % of plants adopted is: {percentAdopted}%.");
 }
