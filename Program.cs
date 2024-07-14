@@ -256,6 +256,9 @@ void SearchByLightNeeds()
 void AppStatistics()
 {
     Console.WriteLine("Application Stats:");
+
+    // LOWEST PRICED PLANT
+    // decimal.MaxValue = largest value a decimal can hold
     decimal lowestPrice = decimal.MaxValue;
     Plant cheapestPlant = null;
 
@@ -276,4 +279,18 @@ void AppStatistics()
     {
         Console.WriteLine("No plants found in the list.");
     }
+
+    // NUMBER OF AVAILABLE PLANTS:
+    // have to set variable to 0
+    int totalAvailablePlants = 0;
+
+    // loop through list, then check if a plant is not sold, increment count for each plant that isn't sold
+    foreach (var plant in plants)
+    {
+        if (!plant.Sold)
+        {
+            totalAvailablePlants++;
+        }
+    }
+    Console.WriteLine($"Total number of available plants: {totalAvailablePlants}.");
 }
