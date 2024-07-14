@@ -27,7 +27,8 @@ while (choice != "0")
                         3. Adopt A Plant
                         4. Delist A Plant
                         5. Plant of the Day
-                        6. Search for Plants by Light Needs");
+                        6. Search for Plants by Light Needs
+                        7. View Statistics");
 
     choice = Console.ReadLine();
     if (choice == "0")
@@ -57,6 +58,10 @@ while (choice != "0")
     else if (choice == "6")
     {
         SearchByLightNeeds();
+    }
+    else if (choice == "7")
+    {
+        AppStatistics();
     }
     else
     {
@@ -245,5 +250,30 @@ void SearchByLightNeeds()
     else
     {
         Console.WriteLine($"No plants found with light needs of {chosenNumber} or lower.");
+    }
+}
+
+void AppStatistics()
+{
+    Console.WriteLine("Application Stats:");
+    decimal lowestPrice = decimal.MaxValue;
+    Plant cheapestPlant = null;
+
+    foreach (var plant in plants)
+    {
+        if (plant.AskingPrice < lowestPrice)
+        {
+            lowestPrice = (decimal)plant.AskingPrice;
+            cheapestPlant = plant;
+        }
+    }
+
+    if (cheapestPlant != null)
+    {
+        Console.WriteLine($"The cheapest plant is {cheapestPlant.Species} in {cheapestPlant.City} for ${cheapestPlant.AskingPrice}.");
+    }
+    else
+    {
+        Console.WriteLine("No plants found in the list.");
     }
 }
