@@ -100,10 +100,10 @@ if (choice != "0")
 
 void ListAllPlants()
 {
-    for (int i = 0; i < plants.Count; i++)
+    foreach (var plant in plants)
     {
-        string availability = plants[i].Sold ? "was sold" : "is available";
-        Console.WriteLine(value: $"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}. Post available until: {plants[i].AvailableUntil}");
+        string availability = plant.Sold ? "was sold" : "is available";
+        Console.WriteLine($"{PlantDetails(plant)} It {availability}. Post available until: {plant.AvailableUntil}");
     }
 }
 
@@ -113,12 +113,13 @@ void ListAllAvailablePlants()
 
     var availablePlants = plants.Where(plant => !plant.Sold && plant.AvailableUntil > now).ToList();
 
-    for (int i = 0; i < availablePlants.Count; i++)
+    foreach (var plant in availablePlants)
     {
-        string availability = availablePlants[i].Sold ? "was sold" : "is available";
-        Console.WriteLine($"{i + 1}. {availablePlants[i].Species} in {availablePlants[i].City} {availability} for ${availablePlants[i].AskingPrice}");
+        string availability = plant.Sold ? "was sold" : "is available";
+        Console.WriteLine($"{PlantDetails(plant)} It {availability}.");
     }
 }
+
 void NewPlant()
 {
     Console.WriteLine("Enter the details for the new plant:");
@@ -230,7 +231,7 @@ void PlantOfTheDay()
         int randomInteger = randomPlant.Next(availablePlants.Count());
         {
             Plant plantOfTheDay = availablePlants[randomInteger];
-            Console.WriteLine($"{plantOfTheDay.Species} in {plantOfTheDay.City}, requires light needs of {plantOfTheDay.LightNeeds} and is ${plantOfTheDay.AskingPrice}");
+            Console.WriteLine($"{PlantDetails(plantOfTheDay)}");
         }
 
     }
@@ -290,7 +291,7 @@ void AppStatistics()
 
     if (cheapestPlant != null)
     {
-        Console.WriteLine($"The cheapest plant is {cheapestPlant.Species} in {cheapestPlant.City} for ${cheapestPlant.AskingPrice}.");
+        Console.WriteLine($"The cheapest plant is {PlantDetails(cheapestPlant)}");
     }
     else
     {
@@ -327,7 +328,7 @@ void AppStatistics()
 
     if (sunnyPlant != null)
     {
-        Console.WriteLine($"The plant that has the highest light need is {sunnyPlant.Species} in {sunnyPlant.City} with a light need of {sunnyPlant.LightNeeds}.");
+        Console.WriteLine($"The plant that has the highest light need is {PlantDetails(sunnyPlant)}");
     }
     else
     {
@@ -366,4 +367,9 @@ void AppStatistics()
 
 
     Console.WriteLine($"The % of plants adopted is: {percentAdopted}%.");
+}
+
+string PlantDetails(Plant plant)
+{
+    return $"{plant.Species} in {plant.City} for ${plant.AskingPrice} requires light level of {plant.LightNeeds}.";
 }
