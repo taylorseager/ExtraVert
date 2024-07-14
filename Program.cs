@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Globalization;
 using System.Numerics;
 
 List<Plant> plants = new List<Plant>()
@@ -7,7 +8,7 @@ List<Plant> plants = new List<Plant>()
     new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 07, 12)),
     new Plant(species: "Zinnia", lightNeeds: 2, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
     new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 05, 12)),
-    new Plant(species: "Gerbera Daisy", lightNeeds: 1, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 1, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2023, 02, 27)),
 };
 
 
@@ -139,17 +140,33 @@ void NewPlant()
     int zip;
     while (!int.TryParse(Console.ReadLine().Trim(), out zip)) ;
 
-
-    Console.WriteLine("Enter Year, Month, Day, your post will expire (YYYY-MM-DD): ");
+    Console.WriteLine("Enter Year, Month, Day, your post will expire (MM/dd/yyyy): ");
     DateTime availableUntil;
-    while (DateTime.TryParse(Console.ReadLine(), out availableUntil)) ;
 
+    while (true)
+    {
+        try
+        {
+            availableUntil = DateTime.ParseExact(Console.ReadLine(), new[] { "MM/dd/yyyy" }, CultureInfo.InvariantCulture, DateTimeStyles.None);
+            break;
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid try again");
+
+        }
+        catch (ArgumentOutOfRangeException)
+{
+    Console.WriteLine("Invalid date range. Please enter a valid date.");
+}
+    }
 
     Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip, sold: false, availableUntil);
 
     plants.Add(newPlant);
 
     Console.WriteLine($"The plant {newPlant.Species} has been added!");
+
 }
 
 void AdoptAPlant()
