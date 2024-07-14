@@ -99,10 +99,10 @@ if (choice != "0")
 
 void ListAllPlants()
 {
-    for (int i = 0; i < plants.Count; i++)
+    foreach (var plant in plants)
     {
-        string availability = plants[i].Sold ? "was sold" : "is available";
-        Console.WriteLine(value: $"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}. Post available until: {plants[i].AvailableUntil}");
+        string availability = plant.Sold ? "was sold" : "is available";
+        Console.WriteLine($"{PlantDetails(plant)}. It {availability}. Post available until: {plant.AvailableUntil}");
     }
 }
 
@@ -112,10 +112,10 @@ void ListAllAvailablePlants()
 
     var availablePlants = plants.Where(plant => !plant.Sold && plant.AvailableUntil > now).ToList();
 
-    for (int i = 0; i < availablePlants.Count; i++)
+    foreach (var plant in plants)
     {
-        string availability = availablePlants[i].Sold ? "was sold" : "is available";
-        Console.WriteLine($"{i + 1}. {availablePlants[i].Species} in {availablePlants[i].City} {availability} for ${availablePlants[i].AskingPrice}");
+        string availability = plant.Sold ? "was sold" : "is available";
+        Console.WriteLine($"{PlantDetails(plant)}. It {availability}.");
     }
 }
 void NewPlant()
@@ -273,7 +273,7 @@ void AppStatistics()
 
     if (cheapestPlant != null)
     {
-        Console.WriteLine($"The cheapest plant is {cheapestPlant.Species} in {cheapestPlant.City} for ${cheapestPlant.AskingPrice}.");
+        Console.WriteLine($"The cheapest plant is {PlantDetails(cheapestPlant)}.");
     }
     else
     {
@@ -349,4 +349,9 @@ void AppStatistics()
 
 
     Console.WriteLine($"The % of plants adopted is: {percentAdopted}%.");
+}
+
+string PlantDetails(Plant plant)
+{
+    return $"{plant.Species} in {plant.City} for ${plant.AskingPrice}";
 }
