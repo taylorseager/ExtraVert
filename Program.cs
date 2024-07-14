@@ -97,7 +97,7 @@ void ListAllPlants()
     for (int i = 0; i < plants.Count; i++)
     {
         string availability = plants[i].Sold ? "was sold" : "is available";
-        Console.WriteLine(value: $"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}. Post will expire: {plants[i].AvailableUntil}");
+        Console.WriteLine(value: $"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}. Post available until: {plants[i].AvailableUntil}");
     }
 }
 
@@ -138,14 +138,6 @@ void NewPlant()
     Console.WriteLine("Enter Year, Month, Day, your post will expire (YYYY-MM-DD): ");
     DateTime availableUntil;
     while (DateTime.TryParse(Console.ReadLine(), out availableUntil)) ;
-    //    {
-    //        Console.WriteLine($"Post will expire on: {availableUntil}");
-    //    }
-    //else
-    //    {
-    //        Console.WriteLine("Invalid date format.");
-    //    }
-
 
 
     Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip, sold: false, availableUntil);
