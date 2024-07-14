@@ -20,6 +20,6 @@ using System.Reflection.Emit;
             City = city;
             Zip = zip;
             Sold = sold;
-            AvailableUntil = availableUntil
+        AvailableUntil = availableUntil;
         }
     }

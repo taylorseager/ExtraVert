@@ -3,11 +3,11 @@ using System.Numerics;
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true, DateTime.Now.AddDays(40)),
-    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, DateTime.Now.AddDays(30)),
-    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, DateTime.Now.AddDays(10)),
-    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, DateTime.Now.AddDays(15)),
-    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, DateTime.Now.AddDays(30)),
+    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2023-08-12)),
+    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2023-07-12)),
+    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2023-08-12)),
+    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2023-05-12)),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2023-08-12)),
 };
 
 Random randomPlant = new Random();
@@ -28,6 +28,7 @@ while (choice != "0")
                         4. Delist A Plant
                         5. Plant of the Day
                         6. Search for Plants by Light Needs");
+
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -57,7 +58,11 @@ while (choice != "0")
     {
         SearchByLightNeeds();
     }
-};
+    else
+    {
+        Console.WriteLine("Invalid Choice. Try again!");
+    }
+}
 
 Plant chosenProduct = null;
 
@@ -92,7 +97,7 @@ void ListAllPlants()
     for (int i = 0; i < plants.Count; i++)
     {
         string availability = plants[i].Sold ? "was sold" : "is available";
-        Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}");
+        Console.WriteLine(value: $"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}. Post will expire: {plants[i].AvailableUntil}");
     }
 }
 
@@ -119,17 +124,27 @@ void NewPlant()
     Console.WriteLine("Asking Price: ");
     decimal askingPrice;
     while (!decimal.TryParse(Console.ReadLine().Trim(), out askingPrice));
-  
-        Console.WriteLine("City: ");
+
+    Console.WriteLine("City: ");
     string? city = Console.ReadLine().Trim();
 
     Console.WriteLine("Zipcode: ");
     int zip;
     while (!int.TryParse(Console.ReadLine().Trim(), out zip)) ;
 
-    Console.WriteLine("Enter Year, Month, Day, your post will expire: ");
-    int zip;
-    while (!int.TryParse(Console.ReadLine().Trim(), out availableUntil)) ;
+
+    Console.WriteLine("Enter Year, Month, Day, your post will expire (YYYY-MM-DD): ");
+    DateTime availableUntil;
+    if (DateTime.TryParse(Console.ReadLine(), out availableUntil))
+        {
+            Console.WriteLine($"Post will expire on: {availableUntil}");
+        }
+    else
+        {
+            Console.WriteLine("Invalid date format.");
+        }
+
+
 
     Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip, sold: false, availableUntil);
 
