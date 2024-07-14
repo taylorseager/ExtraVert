@@ -3,11 +3,11 @@ using System.Numerics;
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true),
-    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false),
-    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false),
-    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true),
-    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false),
+    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true, DateTime.Now.AddDays(40)),
+    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, DateTime.Now.AddDays(30)),
+    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, DateTime.Now.AddDays(10)),
+    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, DateTime.Now.AddDays(15)),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, DateTime.Now.AddDays(30)),
 };
 
 Random randomPlant = new Random();
@@ -127,7 +127,11 @@ void NewPlant()
     int zip;
     while (!int.TryParse(Console.ReadLine().Trim(), out zip)) ;
 
-    Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip, sold: false);
+    Console.WriteLine("Enter Year, Month, Day, your post will expire: ");
+    int zip;
+    while (!int.TryParse(Console.ReadLine().Trim(), out availableUntil)) ;
+
+    Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip, sold: false, availableUntil);
 
     plants.Add(newPlant);
 
