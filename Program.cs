@@ -102,7 +102,7 @@ void ListAllPlants()
     foreach (var plant in plants)
     {
         string availability = plant.Sold ? "was sold" : "is available";
-        Console.WriteLine($"{PlantDetails(plant)}. It {availability}. Post available until: {plant.AvailableUntil}");
+        Console.WriteLine($"{PlantDetails(plant)} It {availability}. Post available until: {plant.AvailableUntil}");
     }
 }
 
@@ -112,12 +112,13 @@ void ListAllAvailablePlants()
 
     var availablePlants = plants.Where(plant => !plant.Sold && plant.AvailableUntil > now).ToList();
 
-    foreach (var availablePlant in plants)
+    foreach (var plant in availablePlants)
     {
-        string availability = availablePlant.Sold ? "was sold" : "is available";
-        Console.WriteLine($"{PlantDetails(availablePlant)}. It {availability}.");
+        string availability = plant.Sold ? "was sold" : "is available";
+        Console.WriteLine($"{PlantDetails(plant)} It {availability}.");
     }
 }
+
 void NewPlant()
 {
     Console.WriteLine("Enter the details for the new plant:");
@@ -273,7 +274,7 @@ void AppStatistics()
 
     if (cheapestPlant != null)
     {
-        Console.WriteLine($"The cheapest plant is {PlantDetails(cheapestPlant)}.");
+        Console.WriteLine($"The cheapest plant is {PlantDetails(cheapestPlant)}");
     }
     else
     {
@@ -310,7 +311,7 @@ void AppStatistics()
 
     if (sunnyPlant != null)
     {
-        Console.WriteLine($"The plant that has the highest light need is {sunnyPlant.Species} in {sunnyPlant.City} with a light need of {sunnyPlant.LightNeeds}.");
+        Console.WriteLine($"The plant that has the highest light need is {PlantDetails(sunnyPlant)}");
     }
     else
     {
