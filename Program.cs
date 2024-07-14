@@ -112,10 +112,10 @@ void ListAllAvailablePlants()
 
     var availablePlants = plants.Where(plant => !plant.Sold && plant.AvailableUntil > now).ToList();
 
-    foreach (var plant in plants)
+    foreach (var availablePlant in plants)
     {
-        string availability = plant.Sold ? "was sold" : "is available";
-        Console.WriteLine($"{PlantDetails(plant)}. It {availability}.");
+        string availability = availablePlant.Sold ? "was sold" : "is available";
+        Console.WriteLine($"{PlantDetails(availablePlant)}. It {availability}.");
     }
 }
 void NewPlant()
@@ -213,7 +213,7 @@ void PlantOfTheDay()
         int randomInteger = randomPlant.Next(availablePlants.Count());
         {
             Plant plantOfTheDay = availablePlants[randomInteger];
-            Console.WriteLine($"{plantOfTheDay.Species} in {plantOfTheDay.City}, requires light needs of {plantOfTheDay.LightNeeds} and is ${plantOfTheDay.AskingPrice}");
+            Console.WriteLine($"{PlantDetails(plantOfTheDay)}");
         }
 
     }
@@ -353,5 +353,5 @@ void AppStatistics()
 
 string PlantDetails(Plant plant)
 {
-    return $"{plant.Species} in {plant.City} for ${plant.AskingPrice}";
+    return $"{plant.Species} in {plant.City} for ${plant.AskingPrice} requires light level of {plant.LightNeeds}.";
 }
