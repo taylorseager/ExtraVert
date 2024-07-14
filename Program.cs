@@ -293,4 +293,27 @@ void AppStatistics()
         }
     }
     Console.WriteLine($"Total number of available plants: {totalAvailablePlants}.");
+
+
+    // HIGHEST LIGHT NEEDS
+    double highestLight = double.MinValue;
+    Plant sunnyPlant = null;
+
+    foreach (var plant in plants)
+    {
+        if (plant.LightNeeds > highestLight)
+        {
+            highestLight = (double)plant.LightNeeds;
+            sunnyPlant = plant;
+        }
+    }
+
+    if (sunnyPlant != null)
+    {
+        Console.WriteLine($"The plant that has the highest light need is {sunnyPlant.Species} in {sunnyPlant.City} with a light need of {sunnyPlant.LightNeeds}.");
+    }
+    else
+    {
+        Console.WriteLine("No plants found in the list.");
+    }
 }
