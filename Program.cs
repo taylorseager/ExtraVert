@@ -339,6 +339,7 @@ void AppStatistics()
     int plantsTotal = plants.Count;
     int plantsAdopted = plants.Count(plant => plant.Sold);
 
+    // sets percentAdopted to 0; has to have f behind it to tell C# it's a float
     float percentAdopted = 0.0f;
 
     if (plantsTotal > 0)
