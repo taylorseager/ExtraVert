@@ -3,18 +3,18 @@ using System.Numerics;
 
 List<Plant> plants = new List<Plant>()
 {
-    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true),
-    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false),
-    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false),
-    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true),
-    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false),
+    new Plant(species: "Hosta", lightNeeds: 5, askingPrice:20.00M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species:"Snake Plant", lightNeeds: 3, askingPrice: 15.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 07, 12)),
+    new Plant(species: "Zinnia", lightNeeds: 5, askingPrice: 12.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
+    new Plant(species: "Stargazer Lily", lightNeeds: 4, askingPrice: 24.99M, city: "Nashville", zip: 37011, sold: true, availableUntil: new DateTime(2024, 05, 12)),
+    new Plant(species: "Gerbera Daisy", lightNeeds: 4, askingPrice: 5.99M, city: "Hendersonville", zip: 37075, sold: false, availableUntil: new DateTime(2024, 08, 12)),
 };
+
 
 Random randomPlant = new Random();
 
 string greeting = @"Welcome to the Jungle
 A plant store for everyone!";
-
 Console.WriteLine(greeting);
 
 string choice = null;
@@ -28,6 +28,7 @@ while (choice != "0")
                         4. Delist A Plant
                         5. Plant of the Day
                         6. Search for Plants by Light Needs");
+
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -57,7 +58,11 @@ while (choice != "0")
     {
         SearchByLightNeeds();
     }
-};
+    else
+    {
+        Console.WriteLine("Invalid Choice. Try again!");
+    }
+}
 
 Plant chosenProduct = null;
 
@@ -92,13 +97,15 @@ void ListAllPlants()
     for (int i = 0; i < plants.Count; i++)
     {
         string availability = plants[i].Sold ? "was sold" : "is available";
-        Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}");
+        Console.WriteLine(value: $"{i + 1}. {plants[i].Species} in {plants[i].City} {availability} for ${plants[i].AskingPrice}. Post available until: {plants[i].AvailableUntil}");
     }
 }
 
 void ListAllAvailablePlants()
 {
-    var availablePlants = plants.Where(plant => !plant.Sold).ToList();
+    DateTime now = DateTime.Now;
+
+    var availablePlants = plants.Where(plant => !plant.Sold && plant.AvailableUntil > now).ToList();
 
     for (int i = 0; i < availablePlants.Count; i++)
     {
@@ -119,15 +126,21 @@ void NewPlant()
     Console.WriteLine("Asking Price: ");
     decimal askingPrice;
     while (!decimal.TryParse(Console.ReadLine().Trim(), out askingPrice));
-  
-        Console.WriteLine("City: ");
+
+    Console.WriteLine("City: ");
     string? city = Console.ReadLine().Trim();
 
     Console.WriteLine("Zipcode: ");
     int zip;
     while (!int.TryParse(Console.ReadLine().Trim(), out zip)) ;
 
-    Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip, sold: false);
+
+    Console.WriteLine("Enter Year, Month, Day, your post will expire (YYYY-MM-DD): ");
+    DateTime availableUntil;
+    while (DateTime.TryParse(Console.ReadLine(), out availableUntil)) ;
+
+
+    Plant newPlant = new Plant(species, lightNeeds, askingPrice, city, zip, sold: false, availableUntil);
 
     plants.Add(newPlant);
 
@@ -136,11 +149,13 @@ void NewPlant()
 
 void AdoptAPlant()
 {
+    DateTime now = DateTime.Now;
+
     Console.WriteLine("Please enter full plant name to adopt:");
     ListAllAvailablePlants();
     string chosenPlant = Console.ReadLine().Trim().ToLower();
 
-    var availablePlants = plants.Where(plant => plant.Species.ToLower() == chosenPlant && !plant.Sold).ToList();
+    var availablePlants = plants.Where(plant => plant.Species.ToLower() == chosenPlant && !plant.Sold && plant.AvailableUntil > now).ToList();
 
     if (availablePlants.Any())
     {

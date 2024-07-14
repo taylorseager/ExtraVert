@@ -10,8 +10,9 @@ using System.Reflection.Emit;
         public string? City { get; set; }
         public int? Zip { get; set; }
         public bool Sold { get; set; }
+        public DateTime AvailableUntil { get; set; }
 
-        public Plant(string species, double lightNeeds, decimal askingPrice, string city, int zip, bool sold)
+        public Plant(string species, double lightNeeds, decimal askingPrice, string city, int zip, bool sold, DateTime availableUntil)
         {
             Species = species;
             LightNeeds = lightNeeds;
@@ -19,5 +20,6 @@ using System.Reflection.Emit;
             City = city;
             Zip = zip;
             Sold = sold;
+        AvailableUntil = availableUntil;
         }
     }
